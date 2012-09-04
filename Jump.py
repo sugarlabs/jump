@@ -168,6 +168,8 @@ class SolitaireMain:
 
     def load_things(self):
         self.screen = pygame.display.get_surface()
+        if (self.screen == None):
+            self.screen = pygame.display.set_mode((self.width, self.height))
 
         self.font = pygame.font.Font(None, 50)
         a=pygame.image.load("data/0.png").convert()                
