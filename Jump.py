@@ -16,7 +16,7 @@ import gtk
 import pygame
 import random
 from pygame.locals import *
-import levelBase
+
 
 
 BROWN_COLOR = (88, 47, 27)
@@ -85,7 +85,7 @@ def load_sound(name):
         raise SystemExit, message
     return sound
 
-class board(levelBase.Level):
+class board(object):
     
     def __init__(self):
         self.RESERVED = 0
