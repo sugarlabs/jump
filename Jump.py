@@ -152,6 +152,8 @@ class SolitaireMain:
     def __init__(self, width=1200,height=825):
         self.width = width
         self.height = height
+
+        self.actual_level = 6
         
 
     def load_things(self):
@@ -362,18 +364,43 @@ class SolitaireMain:
         self.attached=False
         self.picked=False
         marbleColor=0
-    def reset_board(self):
+
+    def reset_board(self, level=None):
+
+        if not(level==None):
+            self.actual_level = level
         
         global myMatrix
-        myMatrix=[[2,2,1,1,1,2,2],
-                  [2,2,1,1,1,2,2],
-                  [1,1,1,1,1,1,1],
-                  [1,1,1,0,1,1,1],
-                  [1,1,1,1,1,1,1],
-                  [2,2,1,1,1,2,2],
-                  [2,2,1,1,1,2,2]]        
-        
         global myMatrix_colors
+
+        # levels
+        # 0:'Cross'
+        # 1:'Cross 2'
+        # 2:'Hearth'
+        # 3:'Arrow'
+        # 4:'Pyramid'
+        # 5:'Diamond'
+        # 6:'Solitaire'
+        print 'level', self.actual_level , level
+
+        if self.actual_level == 6:
+            myMatrix=[[2,2,1,1,1,2,2],
+                      [2,2,1,1,1,2,2],
+                      [1,1,1,1,1,1,1],
+                      [1,1,1,0,1,1,1],
+                      [1,1,1,1,1,1,1],
+                      [2,2,1,1,1,2,2],
+                      [2,2,1,1,1,2,2]]
+     
+        elif self.actual_level == 0:
+            myMatrix=[[2,2,0,0,0,2,2],
+                      [2,2,0,0,0,2,2],
+                      [0,0,0,1,0,0,0],
+                      [0,0,1,0,1,0,0],
+                      [0,0,0,1,0,0,0],
+                      [2,2,0,1,0,2,2],
+                      [2,2,0,0,0,2,2]]   
+       
         myMatrix_colors=[[0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
@@ -384,6 +411,11 @@ class SolitaireMain:
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0]]
         
+    def change_level(self, level):
+        self.play_var=0
+        self.reset()
+        self.reset_board(level)
+        self.SuperLooper()
         
     def checkValidMovement(self):     
         global marbleColor
@@ -574,6 +606,7 @@ class SolitaireMain:
        
         self.marble_rect.center=pygame.mouse.get_pos()
         self.screen.blit(self.marble_images[self.Number],self.marble_rect)
+
     def noMoreMoves(self):
         global button1
         rollover_once=0

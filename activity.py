@@ -52,7 +52,8 @@ class JumpActivity(activity.Activity):
         toolbar_box.toolbar.insert(item1, -1)
 
         item2 = gtk.ToolItem()
-        levels = (' 1 ', ' 2 ', ' 3 ')
+
+        levels = ('Cross', 'Cross 2', 'Hearth', 'Arrow', 'Pyramid', 'Diamond', 'Solitaire')
         combo = Combo(levels)
         item2.add(combo)
         combo.connect('changed', self.change_combo)
@@ -73,8 +74,9 @@ class JumpActivity(activity.Activity):
         self.show_all()
 
     def change_combo(self, combo):
-        text = combo.get_active_text()
-        print text
+        level = combo.get_active()
+        print level
+        self.game.change_level(level)
 
     def read_file(self, file_path):
         pass
