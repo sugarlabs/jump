@@ -11,18 +11,20 @@ Finally, it would be a good idea to clean out all of the commented out functions
 #-----------------------------------------------------------------------------------------------------------------------
 #                 IMPORT MODULES
 #-----------------------------------------------------------------------------------------------------------------------
-import sys, pygame
+import sys
+import gtk
+import pygame
 import random
 from pygame.locals import *
 import levelBase
 from helpers import *
-#from olpcgames import *
+
 
 #-----------------------------------------------------------------------------------------------------------------------
 #                 INITIALIZE
 #-----------------------------------------------------------------------------------------------------------------------
 
-pygame.init()
+#pygame.init()
 #eventwrap.install()
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -161,7 +163,12 @@ class SolitaireMain:
     def __init__(self, width=1200,height=825):
         self.width = width
         self.height = height
-        self.screen = pygame.display.set_mode((self.width, self.height))
+        #self.screen = pygame.display.set_mode((self.width, self.height))
+        
+
+    def load_things(self):
+        self.screen = pygame.display.get_surface()
+
         self.font = pygame.font.Font(None, 50)
         a=pygame.image.load("data/0.png").convert()                
         a.set_colorkey(color)                        
@@ -644,6 +651,11 @@ class SolitaireMain:
         global button1,helpoff,marbleColor,next_marble,count
         rollover_once=0
         run=1
+
+        pygame.init()
+
+        self.load_things()
+
         self.background = pygame.image.load("data/Background2.png")
         self.play_var=0
         self.help_var=0
@@ -752,6 +764,9 @@ class SolitaireMain:
                     self.pickedSound=1
                 self.changePosition()
                 self.display()
+
+            while gtk.events_pending():
+                gtk.main_iteration()
                 
             for event in pygame.event.get():
                 if event.type == QUIT or (event.type == KEYDOWN and 
@@ -841,7 +856,9 @@ class SolitaireMain:
         self.screen.blit(self.helpscreen,(0,0))
         pygame.display.update()
         while run:
-            
+            while gtk.events_pending():
+                gtk.main_iteration()
+
             for event in pygame.event.get():
                 
                 if event.type == KEYDOWN or event.type == MOUSEBUTTONDOWN:
