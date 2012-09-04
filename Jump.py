@@ -10,14 +10,13 @@
 # Finally, it would be a good idea to clean out all of the commented out functions that are not being used.'''
 # added code for alpha freezing screen: to add - the moves left code and then check if no moves left bring up the screen.
 
-
+import os
 import sys
 import gtk
 import pygame
 import random
 from pygame.locals import *
 import levelBase
-from helpers import *
 
 
 BROWN_COLOR = (88, 47, 27)
