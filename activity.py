@@ -39,20 +39,64 @@ class JumpActivity(activity.Activity):
         toolbar_box.toolbar.insert(activity_button, -1)
         activity_button.show()
 
+        separator1 = gtk.SeparatorToolItem()
+        separator1.props.draw = True
+        separator1.set_expand(False)
+        toolbar_box.toolbar.insert(separator1, -1)
+        separator1.show()
 
-        separator = gtk.SeparatorToolItem()
-        separator.props.draw = False
-        separator.set_expand(True)
-        toolbar_box.toolbar.insert(separator, -1)
-        separator.show()
+        item1 = gtk.ToolItem()
+        label1 = gtk.Label()
+        label1.set_text(_('Levels') + ' ')
+        item1.add(label1)
+        toolbar_box.toolbar.insert(item1, -1)
+
+        item2 = gtk.ToolItem()
+        levels = (' 1 ', ' 2 ', ' 3 ')
+        combo = Combo(levels)
+        item2.add(combo)
+        combo.connect('changed', self.change_combo)
+        toolbar_box.toolbar.insert(item2, -1)
+
+
+        separator2 = gtk.SeparatorToolItem()
+        separator2.props.draw = False
+        separator2.set_expand(True)
+        toolbar_box.toolbar.insert(separator2, -1)
+        separator2.show()
 
         stop_button = StopButton(self)
         toolbar_box.toolbar.insert(stop_button, -1)
         stop_button.show()
+
+
+        self.show_all()
+
+    def change_combo(self, combo):
+        text = combo.get_active_text()
+        print text
 
     def read_file(self, file_path):
         pass
 
     def write_file(self, file_path):
         pass
+
+
+class Combo(gtk.ComboBox):
+
+    def __init__(self, options):
+
+        self.liststore = gtk.ListStore(str)
+
+        for o in options:
+            self.liststore.append([o])
+
+        gtk.ComboBox.__init__(self, self.liststore)
+
+        cell = gtk.CellRendererText()
+        self.pack_start(cell, True)
+        self.add_attribute(cell, 'text', 0)
+
+        self.set_active(0)
 
