@@ -1,7 +1,6 @@
 [Activity]
 name = Jump
 activity_version = 1
-host_version = 1
-service_name = net.coderanger.olpc.JumpActivity
+bundle_id = net.coderanger.olpc.JumpActivity
 icon = jump
-class = activity.JumpActivity
+exec = sugar-activity activity.JumpActivity
