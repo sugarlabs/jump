@@ -1,16 +1,16 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Jump
+# Authored by Joshua Seaver and Bimal Sadhwani with a big big nod to Natalie Rusk who did the original code in Logo.
+# Version .22 added mouse cursor, alpha overlay on whole screen...partially done
+# Josh added sound integration---annoying???
+# This is the version with a wooden board and a restart button in the lower left and text about marbles left and moves left
+# Note too that olpcgames and eventwrap are not enabled...7
+# Finally, it would be a good idea to clean out all of the commented out functions that are not being used.'''
+# added code for alpha freezing screen: to add - the moves left code and then check if no moves left bring up the screen.
 
-'''Authored by Joshua Seaver and Bimal Sadhwani with a big big nod to Natalie Rusk who did the original code in Logo.
-Version .22 added mouse cursor, alpha overlay on whole screen...partially done
-Josh added sound integration---annoying???
-This is the version with a wooden board and a restart button in the lower left and text about marbles left and moves left
-Note too that olpcgames and eventwrap are not enabled...7
-Finally, it would be a good idea to clean out all of the commented out functions that are not being used.'''
 
-#added code for alpha freezing screen: to add - the moves left code and then check if no moves left bring up the screen.
-#-----------------------------------------------------------------------------------------------------------------------
-#                 IMPORT MODULES
-#-----------------------------------------------------------------------------------------------------------------------
 import sys
 import gtk
 import pygame
@@ -20,16 +20,6 @@ import levelBase
 from helpers import *
 
 
-#-----------------------------------------------------------------------------------------------------------------------
-#                 INITIALIZE
-#-----------------------------------------------------------------------------------------------------------------------
-
-#pygame.init()
-#eventwrap.install()
-
-#-----------------------------------------------------------------------------------------------------------------------
-#                 CLASS DEFINITIONS
-#-----------------------------------------------------------------------------------------------------------------------
 BROWN_COLOR = (88, 47, 27)
 doneTest = 0
 global myMatrix
@@ -66,6 +56,7 @@ marbleColor=0
 special_x=0 
 special_y=0
 next_marble=0
+
 def load_image(name, colorkey=None):
     
     fullname = os.path.join('data', name)
@@ -76,7 +67,6 @@ def load_image(name, colorkey=None):
         print 'Cannot load image:', fullname
         raise SystemExit, message
     image = image.convert()
-    #image.set_colorkey((0,0,0))
     image.set_colorkey((255,255,255))
     return image, image.get_rect()
 
@@ -163,7 +153,6 @@ class SolitaireMain:
     def __init__(self, width=1200,height=825):
         self.width = width
         self.height = height
-        #self.screen = pygame.display.set_mode((self.width, self.height))
         
 
     def load_things(self):
