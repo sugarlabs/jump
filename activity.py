@@ -75,7 +75,6 @@ class JumpActivity(activity.Activity):
 
     def change_combo(self, combo):
         level = combo.get_active()
-        print level
         self.game.change_level(level)
 
     def read_file(self, file_path):

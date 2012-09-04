@@ -381,7 +381,7 @@ class SolitaireMain:
         # 4:'Pyramid'
         # 5:'Diamond'
         # 6:'Solitaire'
-        print 'level', self.actual_level , level
+
 
         if self.actual_level == 6:
             myMatrix=[[2,2,1,1,1,2,2],
@@ -399,6 +399,15 @@ class SolitaireMain:
                       [0,0,0,1,0,0,0],
                       [0,0,0,1,0,0,0],
                       [2,2,0,0,0,2,2],
+                      [2,2,0,0,0,2,2]]
+
+        elif self.actual_level == 1:
+            myMatrix=[[2,2,0,0,0,2,2],
+                      [2,2,0,1,0,2,2],
+                      [0,0,0,1,0,0,0],
+                      [0,1,1,1,1,1,0],
+                      [0,0,0,1,0,0,0],
+                      [2,2,0,1,0,2,2],
                       [2,2,0,0,0,2,2]]
 
  
@@ -637,6 +646,10 @@ class SolitaireMain:
         self.screen.blit(self.alphasurface,self.alphasurfacerect)
         
         while run:
+
+            while gtk.events_pending():
+                gtk.main_iteration()
+
             for event in pygame.event.get():
                 
                 if event.type == QUIT or (event.type == KEYDOWN and 
@@ -1026,6 +1039,8 @@ class SolitaireMain:
         number=f.readline()
         f.close()
         number=int(number)
+
+        # Check level
         if number>32:
             number=32
             
@@ -1038,7 +1053,7 @@ class SolitaireMain:
                 pngNumber=j
                 xtemp = random.randrange(0,7)
                 ytemp = random.randrange(0,7)
-                print pngNumber,xtemp,ytemp
+                #print pngNumber,xtemp,ytemp
                     
                 if(myMatrix[xtemp][ytemp]==1):
                     myMatrix_colors[xtemp][ytemp]=pngNumber+100
