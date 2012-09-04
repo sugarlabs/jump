@@ -39,8 +39,7 @@ myMatrix_colors=[[0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0]]
-                 #[0,0,0,0,0,0,0],
-                 #[0,0,0,0,0,0,0]]     
+   
 
 myMatrixGridSize = len(myMatrix[0])
 marblesLeft = 0
@@ -66,23 +65,27 @@ def load_image(name, colorkey=None):
     except pygame.error, message:
         print 'Cannot load image:', fullname
         raise SystemExit, message
+
     image = image.convert()
-    image.set_colorkey((255,255,255))
-    return image, image.get_rect()
+    if colorkey:
+        image.set_colorkey(colorkey)
+    return image
+
+
+class NoneSound:
+    def play(self):
+        pass
 
 def load_sound(name):
-    
-    """loads a sound file (.ogg) in memory"""
-    class NoneSound:
-        def play(self): pass
-    if not pygame.mixer or not pygame.mixer.get_init():
-        return NoneSound()
+
+    sound = NoneSound()
+
     fullname = os.path.join('data', name)
     try:
         sound = pygame.mixer.Sound(fullname)
     except pygame.error, message:
         print 'Cannot load sound:', fullname
-        raise SystemExit, message
+        #raise SystemExit, message
     return sound
 
 class board(object):
@@ -115,7 +118,8 @@ class Marble(pygame.sprite.Sprite):
             marbleColor = 23 
         pngLoad = str(marbleColor)
         pngLoad = pngLoad + '.png'
-        self.image, self.rect = load_image(pngLoad,-1)
+        self.image = load_image(pngLoad,-1)
+        self.rect = self.image.get_rect()
                 
         if rect != None:
             self.rect = rect
@@ -124,7 +128,8 @@ class simple_button(pygame.sprite.Sprite):
 
     def __init__(self,x,y,pic,sound):
         pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image(pic)
+        self.image = load_image(pic)
+        self.rect = self.image.get_rect()
         self.status = self.down = self.up = 0
         self.ypos = self.rect.top = y
         self.xpos = self.rect.left = x
@@ -163,165 +168,28 @@ class SolitaireMain:
             self.screen = pygame.display.set_mode((self.width, self.height))
 
         self.font = pygame.font.Font(None, 50)
-        a=pygame.image.load("data/0.png").convert()                
-        a.set_colorkey(color)                        
-        b=pygame.image.load("data/1.png").convert()                
-        b.set_colorkey(color)
-        c=pygame.image.load("data/2.png").convert()                
-        c.set_colorkey(color)
-        d=pygame.image.load("data/3.png").convert()
-        d.set_colorkey(color)
-        e=pygame.image.load("data/4.png").convert()
-        e.set_colorkey(color)
-        f=pygame.image.load("data/5.png").convert()
-        f.set_colorkey(color)
-        g=pygame.image.load("data/6.png").convert()
-        g.set_colorkey(color)
-        h=pygame.image.load("data/7.png").convert()                
-        h.set_colorkey(color)
-        i=pygame.image.load("data/8.png").convert()
-        i.set_colorkey(color)
-        j=pygame.image.load("data/9.png").convert()
-        j.set_colorkey(color)
-        k=pygame.image.load("data/10.png").convert()
-        k.set_colorkey(color)
-        l=pygame.image.load("data/11.png").convert()
-        l.set_colorkey(color)
-        m=pygame.image.load("data/12.png").convert()
-        m.set_colorkey(color)
-        n=pygame.image.load("data/13.png").convert()
-        n.set_colorkey(color)
-        o=pygame.image.load("data/14.png").convert()
-        o.set_colorkey(color)
-        p=pygame.image.load("data/15.png").convert()
-        p.set_colorkey(color)
-        q=pygame.image.load("data/16.png").convert()
-        q.set_colorkey(color)
-        r=pygame.image.load("data/17.png").convert()
-        r.set_colorkey(color)
-        s=pygame.image.load("data/18.png").convert()
-        s.set_colorkey(color)
-        t=pygame.image.load("data/19.png").convert()
-        t.set_colorkey(color)
-        u=pygame.image.load("data/20.png").convert()
-        u.set_colorkey(color)
-        v=pygame.image.load("data/21.png").convert()
-        v.set_colorkey(color)
-        w=pygame.image.load("data/22.png").convert()
-        w.set_colorkey(color)
-        x=pygame.image.load("data/23.png").convert()
-        x.set_colorkey(color)
-        y=pygame.image.load("data/24.png").convert()
-        y.set_colorkey(color)        
+
+        self.marble_images=[]
+
+        for i in range(25):
+
+            image = load_image(str(i) + '.png', color)
+            self.marble_images.append(image)
+
         bl=pygame.image.load("data/blank.png")
         z=pygame.image.load("data/25.png")
-        
-        
-        self.marble_images=[]
-        self.marble_images.append(a)
-        self.marble_images.append(b)
-        self.marble_images.append(c)
-        self.marble_images.append(d)
-        self.marble_images.append(e)
-        self.marble_images.append(f)
-        self.marble_images.append(g)
-        self.marble_images.append(h)
-        self.marble_images.append(i)
-        self.marble_images.append(j)
-        self.marble_images.append(k)
-        self.marble_images.append(l)
-        self.marble_images.append(m)
-        self.marble_images.append(n)
-        self.marble_images.append(o)
-        self.marble_images.append(p)
-        self.marble_images.append(q)
-        self.marble_images.append(r)
-        self.marble_images.append(s)
-        self.marble_images.append(t)
-        self.marble_images.append(u)
-        self.marble_images.append(v)
-        self.marble_images.append(w)
-        self.marble_images.append(x)
-        self.marble_images.append(y)      
+   
         self.marble_images.append(bl)#number25
         self.marble_images.append(z)        
-        
+
         #special marbles
-        a=pygame.image.load("data/S08.png").convert()
-        b=pygame.image.load("data/S21.png").convert()
-        c=pygame.image.load("data/S03.png").convert()
-        d=pygame.image.load("data/S04.png").convert()
-        e=pygame.image.load("data/S05.png").convert()
-        f=pygame.image.load("data/S06.png").convert()
-        g=pygame.image.load("data/S07.png").convert()
-        h=pygame.image.load("data/S08.png").convert()
-        i=pygame.image.load("data/S09.png").convert()
-        j=pygame.image.load("data/S10.png").convert()
-        k=pygame.image.load("data/S11.png").convert()
-        l=pygame.image.load("data/S12.png").convert()
-        m=pygame.image.load("data/S13.png").convert()
-        n=pygame.image.load("data/S14.png").convert()
-        o=pygame.image.load("data/S15.png").convert()
-        p=pygame.image.load("data/S16.png").convert()
-        q=pygame.image.load("data/S17.png").convert()
-        r=pygame.image.load("data/S18.png").convert()
-        s=pygame.image.load("data/S19.png").convert()
-        t=pygame.image.load("data/S20.png").convert()
-        u=pygame.image.load("data/S21.png").convert()
-        v=pygame.image.load("data/S22.png").convert()
-        w=pygame.image.load("data/S23.png").convert()
-        x=pygame.image.load("data/S24.png").convert()
-        y=pygame.image.load("data/S25.png").convert()
-        z=pygame.image.load("data/S26.png").convert()
-        aa=pygame.image.load("data/S27.png").convert()
-        ab=pygame.image.load("data/S28.png").convert()
-        ac=pygame.image.load("data/S29.png").convert()
-        ad=pygame.image.load("data/S30.png").convert()
-        ae=pygame.image.load("data/S31.png").convert()
-        af=pygame.image.load("data/S32.png").convert()
-        ag=pygame.image.load("data/S33.png").convert()
-        ah=pygame.image.load("data/S34.png").convert()
-        ai=pygame.image.load("data/S35.png").convert()
-        aj=pygame.image.load("data/S36.png").convert()                
-        
         self.special_marbles=[]
-        self.special_marbles.append(a)
-        self.special_marbles.append(b)
-        self.special_marbles.append(c)
-        self.special_marbles.append(d)
-        self.special_marbles.append(e)
-        self.special_marbles.append(f)
-        self.special_marbles.append(g)
-        self.special_marbles.append(h)
-        self.special_marbles.append(i)
-        self.special_marbles.append(j)
-        self.special_marbles.append(k)
-        self.special_marbles.append(l)
-        self.special_marbles.append(m)
-        self.special_marbles.append(n)
-        self.special_marbles.append(o)
-        self.special_marbles.append(p)
-        self.special_marbles.append(q)
-        self.special_marbles.append(r)
-        self.special_marbles.append(s)
-        self.special_marbles.append(t)
-        self.special_marbles.append(u)
-        self.special_marbles.append(v)
-        self.special_marbles.append(w)
-        self.special_marbles.append(x)
-        self.special_marbles.append(y)
-        self.special_marbles.append(z)        
-        self.special_marbles.append(aa)
-        self.special_marbles.append(ab)
-        self.special_marbles.append(ac)
-        self.special_marbles.append(ad)
-        self.special_marbles.append(ae)        
-        self.special_marbles.append(af) #no 31
-        self.special_marbles.append(bl) #no 32
-        self.special_marbles.append(ag)        
-        self.special_marbles.append(ah)
-        self.special_marbles.append(ai)
-        self.special_marbles.append(aj)
+        for i in range(36):
+            n = i + 1
+            image = load_image('S' + str(n) + '.png')
+            self.special_marbles.append(image)
+
+        self.special_marbles[32] = bl #no 32
         
         #call reset funnction
         self.reset()
@@ -458,7 +326,7 @@ class SolitaireMain:
                          [0,0,0,0,0,0,0]]
         
     def change_level(self, level):
-        self.play_var=0
+        self.play_var = 0
         self.reset()
         self.reset_board(level)
         self.SuperLooper()
