@@ -30,6 +30,7 @@ myMatrix = [[2,2,1,1,1,2,2],
             [1,1,1,1,1,1,1],
             [2,2,1,1,1,2,2],
             [2,2,1,1,1,2,2]]
+
 global myMatrix_colors
 myMatrix_colors=[[0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0],
@@ -153,7 +154,7 @@ class SolitaireMain:
         self.width = width
         self.height = height
 
-        self.actual_level = 6
+        self.actual_level = 0
         
 
     def load_things(self):
@@ -1075,8 +1076,35 @@ class SolitaireMain:
         number=int(number)
 
         # Check level
-        if number>32:
-            number=32
+        # 0:'Cross'
+        # 1:'Cross 2'
+        # 2:'Hearth'
+        # 3:'Arrow'
+        # 4:'Pyramid'
+        # 5:'Diamond'
+        # 6:'Solitaire'
+
+        if self.actual_level == 0:
+            if number > 6:
+                number = 6
+        elif self.actual_level == 1:
+            if number > 9:
+                number = 9
+        elif self.actual_level == 2:
+            if number > 11:
+                number = 11
+        elif self.actual_level == 3:
+            if number > 17:
+                number = 17
+        elif self.actual_level == 4:
+            if number > 16:
+                number = 16
+        elif self.actual_level == 5:
+            if number > 24:
+                number = 24
+        elif self.actual_level == 6:
+            if number > 32:
+                number = 32
             
         next_marble=number+1
         j=0
