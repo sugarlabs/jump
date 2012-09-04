@@ -1,6 +1,6 @@
 [Activity]
 name = Jump
-activity_version = 1
+activity_version = 2
 bundle_id = net.coderanger.olpc.JumpActivity
 icon = jump
 exec = sugar-activity activity.JumpActivity
