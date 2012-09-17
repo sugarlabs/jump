@@ -22,6 +22,8 @@ class JumpActivity(activity.Activity):
     def __init__(self, handle):
         activity.Activity.__init__(self, handle)
 
+        self.sound_enable = True
+
         self.game = Jump.SolitaireMain()
         self.build_toolbar()
         self._pygamecanvas = sugargame.canvas.PygameCanvas(self)
@@ -59,12 +61,22 @@ class JumpActivity(activity.Activity):
         combo.connect('changed', self.change_combo)
         toolbar_box.toolbar.insert(item2, -1)
 
-
         separator2 = gtk.SeparatorToolItem()
-        separator2.props.draw = False
-        separator2.set_expand(True)
+        separator2.props.draw = True
+        separator2.set_expand(False)
         toolbar_box.toolbar.insert(separator2, -1)
         separator2.show()
+
+        sound_button = ToolButton('speaker-100')
+        sound_button.set_tooltip(_('Sound'))
+        sound_button.connect('clicked', self.sound_control)
+        toolbar_box.toolbar.insert(sound_button, -1)
+
+        separator3 = gtk.SeparatorToolItem()
+        separator3.props.draw = False
+        separator3.set_expand(True)
+        toolbar_box.toolbar.insert(separator3, -1)
+        separator3.show()
 
         stop_button = StopButton(self)
         toolbar_box.toolbar.insert(stop_button, -1)
@@ -76,6 +88,16 @@ class JumpActivity(activity.Activity):
     def change_combo(self, combo):
         level = combo.get_active()
         self.game.change_level(level)
+
+    def sound_control(self, button):
+        self.sound_enable = not self.sound_enable
+        self.game.change_sound(self.sound_enable)
+        if not self.sound_enable:
+            button.set_icon('speaker-000')
+            button.set_tooltip(_('No sound'))
+        else:
+            button.set_icon('speaker-100')
+            button.set_tooltip(_('Sound'))
 
     def read_file(self, file_path):
         pass

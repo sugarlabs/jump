@@ -56,6 +56,9 @@ special_x=0
 special_y=0
 next_marble=0
 
+global sound_enable
+sound_enable = True
+
 def load_image(name, colorkey=None):
     
     fullname = os.path.join('data', name)
@@ -135,9 +138,11 @@ class simple_button(pygame.sprite.Sprite):
         self.xpos = self.rect.left = x
         self.pressSound = load_sound('newboard.ogg')
         
-    def press(self):        
+    def press(self):
+        global sound_enable
         self.status = 1
-        self.pressSound.play()
+        if sound_enable:
+            self.pressSound.play()
         
     def unpress(self):        
         self.status = 0
@@ -160,7 +165,10 @@ class SolitaireMain:
         self.height = height
 
         self.actual_level = 0
-        
+
+    def change_sound(self, sound):
+        global sound_enable
+        sound_enable = sound
 
     def load_things(self):
         self.screen = pygame.display.get_surface()
@@ -213,6 +221,9 @@ class SolitaireMain:
         self.level_sounds.append(load_sound('5.ogg'))
         self.level_sounds.append(load_sound('6.ogg'))
         self.level_sounds.append(load_sound('7.ogg'))
+
+        self.move_sound = load_sound('drop.ogg')
+        self.picked_sound = load_sound('pop1.ogg')
         
     def reset(self):    
         global marbleColor
@@ -332,7 +343,7 @@ class SolitaireMain:
         self.SuperLooper()
         
     def checkValidMovement(self):     
-        global marbleColor
+        global marbleColor, sound_enable
         temp=pygame.mouse.get_pos()
         #print temp
         x=temp[0]    
@@ -419,9 +430,8 @@ class SolitaireMain:
             myMatrix[neighborStateRow][neighborStateColumn] = 0
             myMatrix[y][z] = 1
             myMatrix_colors[y][z]=myMatrix_colors[w][x]
-            #test playing sound here
-            moveSound = load_sound('drop.ogg')
-            moveSound.play()
+            if sound_enable:
+                self.move_sound.play()
             
         else:             
              if(self.OutofRange==True):
@@ -589,7 +599,7 @@ class SolitaireMain:
  
     def SuperLooper(self):
         
-        global button1,helpoff,marbleColor,next_marble,count
+        global button1,helpoff,marbleColor,next_marble,count,sound_enable
         rollover_once=0
         run=1
 
@@ -699,9 +709,10 @@ class SolitaireMain:
                 '''Change the cursor to an X'''
                 pygame.mouse.set_cursor((32, 32), (0, 0), CROSS_0, CROSS_1 )
                 self.picked=True
-                pickedSound = load_sound('pop1.ogg')
+                
                 if self.pickedSound == 0:
-                    pickedSound.play()
+                    if sound_enable:
+                        self.picked_sound.play()
                     self.pickedSound=1
                 self.changePosition()
                 self.display()
@@ -741,47 +752,46 @@ class SolitaireMain:
             pygame.display.update()
             
             if self.updated_text==28 and self.play_sound==False and count==0:
-                self.level_sounds[0].play()
+                if sound_enable:
+                    self.level_sounds[0].play()
                 count+=1
                 self.play_sound=True
             elif self.updated_text==24 and self.play_sound==False and count==1:
-                self.level_sounds[1].play()
+                if sound_enable:
+                    self.level_sounds[1].play()
                 self.play_sound=False
                 count+=1
             elif self.updated_text==20 and self.play_sound==False and count==2:
-                self.level_sounds[2].play()
+                if sound_enable:
+                    self.level_sounds[2].play()
                 self.play_sound=True
                 count+=1
             elif self.updated_text==16 and self.play_sound==False and count==3:
-                self.level_sounds[3].play()
+                if sound_enable:
+                    self.level_sounds[3].play()
                 self.play_sound=True
                 count+=1
             elif self.updated_text==12 and self.play_sound==False and count==4:
-                self.level_sounds[4].play()
+                if sound_enable:
+                    self.level_sounds[4].play()
                 self.play_sound=True
                 count+=1
             elif self.updated_text==8 and self.play_sound==False and count==5:
-                self.level_sounds[5].play()
+                if sound_enable:
+                    self.level_sounds[5].play()
                 self.play_sound=True
                 count+=1
             elif self.updated_text==4 and self.play_sound==False and count==6:
-                self.level_sounds[6].play()
+                if sound_enable:
+                    self.level_sounds[6].play()
                 self.play_sound=True
                 count+=1
                 
             if self.updated_moves==0:
                 if self.updated_text==1:
-                    self.level_sounds[7].play()
-                    f = open("marble.txt","r")                     
-                    number=f.readline()                     
-                    f.close()
-                    number=int(number)
-                    if number>=0:
-                        p=open("marble.txt","w")
-                        number+=1
-                        number=str(number)
-                        p.write(number)
-                        p.close()                       
+                    if sound_enable:
+                        self.level_sounds[7].play()
+                    number = 0                    
                 run=0                
                 self.noMoreMoves()
                 
@@ -938,58 +948,10 @@ class SolitaireMain:
         row=106 #120        
         
         marbleColor = random.randrange(0,23)
-        f = open("marble.txt","r")
-        number=f.readline()
-        f.close()
-        number=int(number)
 
-        # Check level
-        # 0:'Cross'
-        # 1:'Cross 2'
-        # 2:'Hearth'
-        # 3:'Arrow'
-        # 4:'Pyramid'
-        # 5:'Diamond'
-        # 6:'Solitaire'
+        number=0
 
-        if self.actual_level == 0:
-            if number > 6:
-                number = 6
-        elif self.actual_level == 1:
-            if number > 9:
-                number = 9
-        elif self.actual_level == 2:
-            if number > 11:
-                number = 11
-        elif self.actual_level == 3:
-            if number > 17:
-                number = 17
-        elif self.actual_level == 4:
-            if number > 16:
-                number = 16
-        elif self.actual_level == 5:
-            if number > 24:
-                number = 24
-        elif self.actual_level == 6:
-            if number > 32:
-                number = 32
-            
         next_marble=number+1
-        j=0
-        start=292
-        row=106
-        if number>0:                     
-            while j !=(number):
-                pngNumber=j
-                xtemp = random.randrange(0,7)
-                ytemp = random.randrange(0,7)
-                #print pngNumber,xtemp,ytemp
-                    
-                if(myMatrix[xtemp][ytemp]==1):
-                    myMatrix_colors[xtemp][ytemp]=pngNumber+100
-                    self.screen.blit(self.special_marbles[pngNumber],(start+(ytemp*90),row+(xtemp*90)))
-                    myMatrix[xtemp][ytemp]=3
-                    j+=1
         
         row=106           
         #function for generating the dots using matrix method
