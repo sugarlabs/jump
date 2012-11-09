@@ -55,7 +55,14 @@ class JumpActivity(activity.Activity):
 
         item2 = gtk.ToolItem()
 
-        levels = (_('Cross'), _('Cross 2'), _('Hearth'), _('Arrow'), _('Pyramid'), _('Diamond'), _('Solitaire'))
+        levels = (_('Cross'),
+            _('Cross 2'),
+            #TRANS:'chimney' - the place where you make fire
+            _('Hearth'),
+            _('Arrow'),
+            _('Pyramid'),
+            _('Diamond'),
+            _('Solitaire'))
         combo = Combo(levels)
         item2.add(combo)
         combo.connect('changed', self.change_combo)

@@ -5,4 +5,5 @@ bundle_id = net.coderanger.olpc.JumpActivity
 icon = jump
 exec = sugar-activity activity.JumpActivity
 licence = GPLv3+
-summary = A solitarie game with some levels
+summary = A solitaire game with some levels
+
