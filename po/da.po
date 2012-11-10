@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-29 08:24-0400\n"
-"PO-Revision-Date: 2012-10-30 13:55+0200\n"
+"POT-Creation-Date: 2012-11-09 00:33-0500\n"
+"PO-Revision-Date: 2012-11-10 18:50+0200\n"
 "Last-Translator: Aputsiaq Niels <aj@isit.gl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
@@ -23,7 +23,7 @@ msgstr "Hop"
 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
-msgid "A solitarie game with some levels"
+msgid "A solitaire game with some levels"
 msgstr "En kabale med flere niveauer"
 
 #: activity.py:52
@@ -34,35 +34,36 @@ msgstr "Niveauer"
 msgid "Cross"
 msgstr "Kryds"
 
-#: activity.py:58
+#: activity.py:59
 msgid "Cross 2"
 msgstr "Kryds 2"
 
 # Antager fejl i den engelske
-#: activity.py:58
+#. TRANS:'chimney' - the place where you make fire
+#: activity.py:61
 msgid "Hearth"
 msgstr "Hjerte"
 
-#: activity.py:58
+#: activity.py:62
 msgid "Arrow"
 msgstr "Pil"
 
-#: activity.py:58
+#: activity.py:63
 msgid "Pyramid"
 msgstr "Pyramide"
 
-#: activity.py:58
+#: activity.py:64
 msgid "Diamond"
 msgstr "Diamant"
 
-#: activity.py:58
+#: activity.py:65
 msgid "Solitaire"
 msgstr "Kabale"
 
-#: activity.py:71 activity.py:100
+#: activity.py:78 activity.py:107
 msgid "Sound"
 msgstr "Lyd"
 
-#: activity.py:97
+#: activity.py:104
 msgid "No sound"
 msgstr "Ingen lyd"
