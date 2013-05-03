@@ -1,0 +1,68 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-09 00:33-0500\n"
+"PO-Revision-Date: 2013-04-24 20:23+0200\n"
+"Last-Translator: anushnur <anush.mkrtchyan@ca1492.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: hy\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 2.0.5\n"
+
+#. TRANS: "name" option from activity.info file
+msgid "Jump"
+msgstr "Ցատկել"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid "A solitaire game with some levels"
+msgstr "Միայնակ խաղ մի քանի փուլերով"
+
+#: activity.py:52
+msgid "Levels"
+msgstr "Փուլեր"
+
+#: activity.py:58
+msgid "Cross"
+msgstr "Խաչ"
+
+#: activity.py:59
+msgid "Cross 2"
+msgstr "Խաչ 2"
+
+#. TRANS:'chimney' - the place where you make fire
+#: activity.py:61
+msgid "Hearth"
+msgstr "Բուխարի"
+
+#: activity.py:62
+msgid "Arrow"
+msgstr "Նետ"
+
+#: activity.py:63
+msgid "Pyramid"
+msgstr "Բուրգ"
+
+#: activity.py:64
+msgid "Diamond"
+msgstr "Ադամադ"
+
+#: activity.py:65
+msgid "Solitaire"
+msgstr "Միայնակ"
+
+#: activity.py:78 activity.py:107
+msgid "Sound"
+msgstr "Հնչյուն"
+
+#: activity.py:104
+msgid "No sound"
+msgstr "Ոչ մի ձայն"
