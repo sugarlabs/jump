@@ -1,0 +1,67 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-09 00:33-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.7.0\n"
+
+#. TRANS: "name" option from activity.info file
+msgid "Jump"
+msgstr ""
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid "A solitaire game with some levels"
+msgstr ""
+
+#: activity.py:52
+msgid "Levels"
+msgstr ""
+
+#: activity.py:58
+msgid "Cross"
+msgstr ""
+
+#: activity.py:59
+msgid "Cross 2"
+msgstr ""
+
+#. TRANS:'chimney' - the place where you make fire
+#: activity.py:61
+msgid "Hearth"
+msgstr ""
+
+#: activity.py:62
+msgid "Arrow"
+msgstr ""
+
+#: activity.py:63
+msgid "Pyramid"
+msgstr ""
+
+#: activity.py:64
+msgid "Diamond"
+msgstr ""
+
+#: activity.py:65
+msgid "Solitaire"
+msgstr ""
+
+#: activity.py:78 activity.py:107
+msgid "Sound"
+msgstr ""
+
+#: activity.py:104
+msgid "No sound"
+msgstr ""
