@@ -74,7 +74,7 @@ class JumpActivity(activity.Activity):
         toolbar_box.toolbar.insert(separator2, -1)
         separator2.show()
 
-        sound_button = ToolButton('speaker-100')
+        sound_button = ToolButton('speaker-muted-100')
         sound_button.set_tooltip(_('Sound'))
         sound_button.connect('clicked', self.sound_control)
         toolbar_box.toolbar.insert(sound_button, -1)
@@ -100,17 +100,11 @@ class JumpActivity(activity.Activity):
         self.sound_enable = not self.sound_enable
         self.game.change_sound(self.sound_enable)
         if not self.sound_enable:
-            button.set_icon('speaker-000')
+            button.set_icon('speaker-muted-000')
             button.set_tooltip(_('No sound'))
         else:
-            button.set_icon('speaker-100')
+            button.set_icon('speaker-muted-100')
             button.set_tooltip(_('Sound'))
-
-    def read_file(self, file_path):
-        pass
-
-    def write_file(self, file_path):
-        pass
 
 
 class Combo(gtk.ComboBox):
