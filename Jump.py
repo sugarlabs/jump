@@ -29,7 +29,7 @@ import pygame
 import random
 from pygame.locals import *
 from cur import *
-
+from gettext import gettext as _
 
 BROWN_COLOR = (88, 47, 27)
 doneTest = 0
@@ -185,7 +185,11 @@ class SolitaireMain:
     def load_things(self):
         self.screen = pygame.display.get_surface()
         if (self.screen == None):
-            self.screen = pygame.display.set_mode((self.width, self.height))
+            info = pygame.display.Info()
+            self.width = info.current_w
+            self.height = info.current_h
+            self.screen = pygame.display.set_mode((self.width, self.height), pygame.FULLSCREEN)
+            pygame.display.set_caption(_('Jump'))
 
         self.font = pygame.font.Font(None, 50)
 
@@ -257,9 +261,14 @@ class SolitaireMain:
         self.picked=False
         marbleColor=0
 
+    def increase_level(self):
+        self.actual_level = self.actual_level + 1
+        if self.actual_level > 6:
+            self.actual_level = 0
+
     def reset_board(self, level=None):
 
-        if not(level==None):
+        if not(level == None):
             self.actual_level = level
         
         global myMatrix
@@ -357,7 +366,7 @@ class SolitaireMain:
     def checkValidMovement(self):     
         global marbleColor, sound_enable
         temp=pygame.mouse.get_pos()
-        #print temp
+
         x=temp[0]    
         y=temp[1]
         x=x-300
@@ -705,6 +714,7 @@ class SolitaireMain:
                 helpoff = simple_button(970,614,'HelpOff.png',None)
                 self.allspritess=pygame.sprite.RenderPlain(helpoff)
                 self.allspritess.draw(self.screen)
+
             temp_pos=pygame.mouse.get_pressed()
             if temp_pos[0]==0 and self.selected==True and self.pressed==True:
                 self.pressed=False
