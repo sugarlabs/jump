@@ -15,7 +15,7 @@ from gettext import gettext as _
 
 import sugargame.canvas
 
-import Jump
+import jump
 
 class JumpActivity(activity.Activity):
 
@@ -24,7 +24,7 @@ class JumpActivity(activity.Activity):
 
         self.sound_enable = True
 
-        self.game = Jump.SolitaireMain()
+        self.game = jump.SolitaireMain()
         self.build_toolbar()
         self._pygamecanvas = sugargame.canvas.PygameCanvas(self)
         self.set_canvas(self._pygamecanvas)
