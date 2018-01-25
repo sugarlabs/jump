@@ -2,14 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import gtk
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+from gi.repository import GObject
 import pygame
 
-from sugar.activity import activity
-from sugar.graphics.toolbarbox import ToolbarBox
-from sugar.activity.widgets import ActivityToolbarButton
-from sugar.graphics.toolbutton import ToolButton
-from sugar.activity.widgets import StopButton
+from sugar3.activity import activity
+from sugar3.graphics.toolbarbox import ToolbarBox
+from sugar3.activity.widgets import ActivityToolbarButton
+from sugar3.activity.widgets import StopButton
+from sugar3.activity.widgets import ToolButton
 
 from gettext import gettext as _
 
@@ -41,19 +44,19 @@ class JumpActivity(activity.Activity):
         toolbar_box.toolbar.insert(activity_button, -1)
         activity_button.show()
 
-        separator1 = gtk.SeparatorToolItem()
+        separator1 = Gtk.SeparatorToolItem()
         separator1.props.draw = True
         separator1.set_expand(False)
         toolbar_box.toolbar.insert(separator1, -1)
         separator1.show()
 
-        item1 = gtk.ToolItem()
-        label1 = gtk.Label()
+        item1 = Gtk.ToolItem()
+        label1 = Gtk.Label()
         label1.set_text(_('Levels') + ' ')
         item1.add(label1)
         toolbar_box.toolbar.insert(item1, -1)
 
-        item2 = gtk.ToolItem()
+        item2 = Gtk.ToolItem()
 
         levels = (_('Cross'),
             _('Cross 2'),
@@ -68,7 +71,7 @@ class JumpActivity(activity.Activity):
         combo.connect('changed', self.change_combo)
         toolbar_box.toolbar.insert(item2, -1)
 
-        separator2 = gtk.SeparatorToolItem()
+        separator2 = Gtk.SeparatorToolItem()
         separator2.props.draw = True
         separator2.set_expand(False)
         toolbar_box.toolbar.insert(separator2, -1)
@@ -79,7 +82,7 @@ class JumpActivity(activity.Activity):
         sound_button.connect('clicked', self.sound_control)
         toolbar_box.toolbar.insert(sound_button, -1)
 
-        separator3 = gtk.SeparatorToolItem()
+        separator3 = Gtk.SeparatorToolItem()
         separator3.props.draw = False
         separator3.set_expand(True)
         toolbar_box.toolbar.insert(separator3, -1)
@@ -88,7 +91,6 @@ class JumpActivity(activity.Activity):
         stop_button = StopButton(self)
         toolbar_box.toolbar.insert(stop_button, -1)
         stop_button.show()
-
 
         self.show_all()
 
@@ -100,25 +102,25 @@ class JumpActivity(activity.Activity):
         self.sound_enable = not self.sound_enable
         self.game.change_sound(self.sound_enable)
         if not self.sound_enable:
-            button.set_icon('speaker-muted-000')
+            button.set_icon_name('speaker-muted-000')
             button.set_tooltip(_('No sound'))
         else:
-            button.set_icon('speaker-muted-100')
+            button.set_icon_name('speaker-muted-100')
             button.set_tooltip(_('Sound'))
 
 
-class Combo(gtk.ComboBox):
+class Combo(Gtk.ComboBox):
 
     def __init__(self, options):
 
-        self.liststore = gtk.ListStore(str)
+        self.liststore = Gtk.ListStore(str)
 
         for o in options:
             self.liststore.append([o])
 
-        gtk.ComboBox.__init__(self, self.liststore)
-
-        cell = gtk.CellRendererText()
+        Gtk.ComboBox.__init__(self)
+        self.set_model(self.liststore)
+        cell = Gtk.CellRendererText()
         self.pack_start(cell, True)
         self.add_attribute(cell, 'text', 0)
 
