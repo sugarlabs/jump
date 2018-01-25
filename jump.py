@@ -627,7 +627,12 @@ class SolitaireMain:
         global button1,helpoff,marbleColor,next_marble,count,sound_enable
         rollover_once=0
         run=1
-
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                return
+            elif event.type == pygame.VIDEORESIZE:
+                pygame.display.set_mode(event.size, pygame.RESIZABLE)
+                break
         pygame.init()
 
         self.load_things()

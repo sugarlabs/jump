@@ -29,11 +29,14 @@ class JumpActivity(activity.Activity):
 
         self.game = jump.SolitaireMain()
         self.build_toolbar()
-        self._pygamecanvas = sugargame.canvas.PygameCanvas(self)
+
+        self.game.canvas = self._pygamecanvas = \
+            sugargame.canvas.PygameCanvas(self,
+                main=self.game.SuperLooper,
+                modules=[pygame.display, pygame.font])
+
         self.set_canvas(self._pygamecanvas)
         self._pygamecanvas.grab_focus()
-
-        self._pygamecanvas.run_pygame(self.game.SuperLooper)
 
     def build_toolbar(self):
         toolbar_box = ToolbarBox()
