@@ -24,7 +24,11 @@
 
 import os
 import sys
-import gtk
+
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+
 import pygame
 import random
 from pygame.locals import *
@@ -581,8 +585,8 @@ class SolitaireMain:
         
         while run:
 
-            while gtk.events_pending():
-                gtk.main_iteration()
+            while Gtk.events_pending():
+                Gtk.main_iteration()
 
             for event in pygame.event.get():
                 
@@ -623,8 +627,12 @@ class SolitaireMain:
         global button1,helpoff,marbleColor,next_marble,count,sound_enable
         rollover_once=0
         run=1
-
-        pygame.init()
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                return
+            elif event.type == pygame.VIDEORESIZE:
+                pygame.display.set_mode(event.size, pygame.RESIZABLE)
+                break
 
         self.load_things()
 
@@ -739,8 +747,8 @@ class SolitaireMain:
                 self.changePosition()
                 self.display()
 
-            while gtk.events_pending():
-                gtk.main_iteration()
+            while Gtk.events_pending():
+                Gtk.main_iteration()
                 
             for event in pygame.event.get():
                 if event.type == QUIT or (event.type == KEYDOWN and 
@@ -829,8 +837,8 @@ class SolitaireMain:
         self.screen.blit(self.helpscreen,(0,0))
         pygame.display.update()
         while run:
-            while gtk.events_pending():
-                gtk.main_iteration()
+            while Gtk.events_pending():
+                Gtk.main_iteration()
 
             for event in pygame.event.get():
                 
