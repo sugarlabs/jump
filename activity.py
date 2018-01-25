@@ -33,7 +33,7 @@ class JumpActivity(activity.Activity):
         self.game.canvas = self._pygamecanvas = \
             sugargame.canvas.PygameCanvas(self,
                 main=self.game.SuperLooper,
-                modules=[pygame.display, pygame.font])
+                modules=[pygame.display, pygame.font, pygame.mixer])
 
         self.set_canvas(self._pygamecanvas)
         self._pygamecanvas.grab_focus()

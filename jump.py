@@ -633,7 +633,6 @@ class SolitaireMain:
             elif event.type == pygame.VIDEORESIZE:
                 pygame.display.set_mode(event.size, pygame.RESIZABLE)
                 break
-        pygame.init()
 
         self.load_things()
 
