@@ -1004,6 +1004,7 @@ class SolitaireMain:
         
         
 def main():
+    pygame.init()
     MainWindow = SolitaireMain()    
     MainWindow.SuperLooper()
        
