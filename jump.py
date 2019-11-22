@@ -81,9 +81,9 @@ def load_image(name, colorkey=None):
     
     try:
         image = pygame.image.load(fullname)
-    except pygame.error, message:
-        print 'Cannot load image:', fullname
-        raise SystemExit, message
+    except pygame.error as message:
+        print('Cannot load image:', fullname)
+        raise SystemExit(message)
 
     image = image.convert()
     if colorkey:
@@ -102,8 +102,8 @@ def load_sound(name):
     fullname = os.path.join('data', name)
     try:
         sound = pygame.mixer.Sound(fullname)
-    except pygame.error, message:
-        print 'Cannot load sound:', fullname
+    except pygame.error as message:
+        print('Cannot load sound:', fullname)
         #raise SystemExit, message
     return sound
 
@@ -375,10 +375,10 @@ class SolitaireMain:
         y=temp[1]
         x=x-300
         
-        x/=90
+        x //= 90
         y-=120
         
-        y/=90
+        y //= 90
         
         if(x>=0 and x<=6 and y>=0 and y<=6):
         
@@ -492,8 +492,8 @@ class SolitaireMain:
         self.x=pygame.mouse.get_pos()
         x=self.x[0]    
         y=self.x[1]
-        x=(x/90)-(300/90) 
-        y=(y/90)-(120/90)
+        x = (x // 90) - (300 // 90)
+        y = (y // 90) - (120 // 90)
         #self.Number=0
         
         #print "marble  color is :",marbleColor
