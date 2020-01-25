@@ -2,7 +2,7 @@ jump
 ====
 
 A Marble-Jumping Solitaire Game
-Created by a Team at Carnegie Mellon University
+Created by a Team at Carnegie Mellon University.
 
 This game consists of "eat" each "marble" and leaving only one.
 
