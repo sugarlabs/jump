@@ -6,4 +6,4 @@ icon = jump
 exec = sugar-activity3 activity.JumpActivity
 license = GPLv3+
 summary = A solitaire game with some levels
-
+repository = https://github.com/sugarlabs/jump.git
