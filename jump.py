@@ -621,12 +621,15 @@ class SolitaireMain:
                 self.allsprites=pygame.sprite.RenderPlain(button1)
                 self.allsprites.draw(self.screen)
             pygame.display.update()
+            fpsClock.tick(FPS)
  
     def SuperLooper(self):
         
-        global button1,helpoff,marbleColor,next_marble,count,sound_enable
+        global button1,helpoff,marbleColor,next_marble,count,sound_enable,FPS, fpsClock
         rollover_once=0
         run=1
+        FPS = 30
+        fpsClock = pygame.time.Clock()
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 return
@@ -670,7 +673,7 @@ class SolitaireMain:
         self.rollover_images.append(pygame.image.load("data/Arrow3.png"))
         self.rollover_images.append(pygame.image.load("data/Arrow4.png"))
         pygame.display.update()
-        
+        fpsClock.tick(FPS)
         while run:
             #condition for checking for mouse arrows
             if(self.updated_text==32):
@@ -778,9 +781,10 @@ class SolitaireMain:
                 if self.help_var==1:
                     self.help_var=0
                     self.help_screen()
-                    
+
             pygame.display.update()
-            
+            fpsClock.tick(FPS)
+
             if self.updated_text==28 and self.play_sound==False and count==0:
                 if sound_enable:
                     self.level_sounds[0].play()
@@ -836,6 +840,8 @@ class SolitaireMain:
         self.screen.blit(self.alphasurface,self.alphasurfacerect)            
         self.screen.blit(self.helpscreen,(0,0))
         pygame.display.update()
+        fpsClock.tick(FPS)
+
         while run:
             while Gtk.events_pending():
                 Gtk.main_iteration()
