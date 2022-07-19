@@ -370,7 +370,7 @@ class SolitaireMain:
     def checkValidMovement(self):     
         global marbleColor, sound_enable
         temp=pygame.mouse.get_pos()
-
+        dirty = []
         x=temp[0]    
         y=temp[1]
         x=x-300
@@ -471,15 +471,16 @@ class SolitaireMain:
                       
                 if(myMatrix[k][i]==1): 
                     if self.pngNumber==marbleColor:                        
-                        self.screen.blit(self.marble_images[self.pngNumber],(start,row))
+                        dirty.append(self.screen.blit(self.marble_images[self.pngNumber],(start,row)))
                     else:
         
                         self.pngNumber-=100
-                        self.screen.blit(self.special_marbles[self.pngNumber],(start,row))                       
+                        dirty.append(self.screen.blit(self.special_marbles[self.pngNumber],(start,row)))                    
         
                 start+=90                        
             row+=90        
-        
+        pygame.display.update(dirty)
+        fpsClock.tick(FPS)
         #reseting the values back
         self.OutofRange=True 
         self.initial_x=0
@@ -495,7 +496,7 @@ class SolitaireMain:
         x = (x // 90) - (300 // 90)
         y = (y // 90) - (120 // 90)
         #self.Number=0
-        
+        dirty = []
         #print "marble  color is :",marbleColor
         if(x>=0 and x<7 and y>=0 and y<7):
             if self.pressed==False and myMatrix[y][x]==1:
@@ -531,23 +532,26 @@ class SolitaireMain:
                 if(myMatrix[k][i]==1):
         
                     if self.pngNumber==marbleColor:                        
-                        self.screen.blit(self.marble_images[self.pngNumber],(start,row))
+                        dirty.append(self.screen.blit(self.marble_images[self.pngNumber],(start,row)))
                     
                     else:
                         self.pngNumber-=100
         
-                        self.screen.blit(self.special_marbles[self.pngNumber],(start,row))
+                        dirty.append(self.screen.blit(self.special_marbles[self.pngNumber],(start,row)))
                 start+=90                        
             row+=90
         
 
         if self.Number==marbleColor:
-            self.screen.blit(self.marble_images[self.Number],self.marble_rect)
+            dirty.append(self.screen.blit(self.marble_images[self.Number],self.marble_rect))
         elif self.Number==25:
-            self.screen.blit(self.marble_images[self.Number],self.marble_rect)
+            dirty.append(self.screen.blit(self.marble_images[self.Number],self.marble_rect))
         else:
 
-            self.screen.blit(self.special_marbles[self.Number-100],self.marble_rect)
+            dirty.append(self.screen.blit(self.special_marbles[self.Number-100],self.marble_rect))
+        
+        pygame.display.update(dirty)
+        fpsClock.tick(FPS)
         
     def moving(self):
         row=90
@@ -557,6 +561,7 @@ class SolitaireMain:
         self.screen.blit(self.marble_images[self.Number],self.marble_rect)
 
     def noMoreMoves(self):
+        dirty = []
         global button1
         rollover_once=0
         run=1
@@ -565,7 +570,7 @@ class SolitaireMain:
         self.alphasurfacerect = pygame.Rect(0,0,1280,825)
         self.alphasurface.fill((100,100,100))
         self.alphasurface.set_alpha(200)
-        self.screen.blit(self.background, (0,0))
+        dirty.append(self.screen.blit(self.background, (0,0)))
         row=106
         for k in range(7):  
             start=292         
@@ -573,15 +578,15 @@ class SolitaireMain:
                 self.pngNumber=myMatrix_colors[k][i]
                 if(myMatrix[k][i]==1):   
                     if self.pngNumber==marbleColor:                        
-                        self.screen.blit(self.marble_images[self.pngNumber],(start,row))
+                        dirty.append(self.screen.blit(self.marble_images[self.pngNumber],(start,row)))
                     else:
                         self.pngNumber-=100
-                        self.screen.blit(self.special_marbles[self.pngNumber],(start,row))                                
+                        dirty.append(self.screen.blit(self.special_marbles[self.pngNumber],(start,row)))                             
                 start+=90                        
             row+=90     
         
         self.display()
-        self.screen.blit(self.alphasurface,self.alphasurfacerect)
+        dirty.append(self.screen.blit(self.alphasurface,self.alphasurfacerect))
         
         while run:
 
@@ -614,19 +619,22 @@ class SolitaireMain:
                 self.allsprites.remove(button1)
                 button1 = simple_button(31,614,'NewBoardOn.png',None)
                 self.allsprites=pygame.sprite.RenderPlain(button1)
-                self.allsprites.draw(self.screen)
+                dirty.append(self.allsprites.draw(self.screen))
             elif not (button1.rect.collidepoint(pygame.mouse.get_pos())):
                 rollover_once=0
                 button1 = simple_button(31,614,'NewBoard.png',None)
                 self.allsprites=pygame.sprite.RenderPlain(button1)
-                self.allsprites.draw(self.screen)
-            pygame.display.update()
+                dirty.append(self.allsprites.draw(self.screen))
+            pygame.display.update(dirty)
+            fpsClock.tick(FPS)
  
     def SuperLooper(self):
         
-        global button1,helpoff,marbleColor,next_marble,count,sound_enable
+        global button1,helpoff,marbleColor,next_marble,count,sound_enable,FPS, fpsClock
         rollover_once=0
         run=1
+        FPS = 30
+        fpsClock = pygame.time.Clock()
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 return
@@ -635,7 +643,7 @@ class SolitaireMain:
                 break
 
         self.load_things()
-
+        dirty = []
         self.background = pygame.image.load("data/Background2.png")
         self.play_var=0
         self.help_var=0
@@ -645,7 +653,7 @@ class SolitaireMain:
         group=[]
         empty=()
         self.displaying_arrow=False
-        self.screen.blit(self.background, (0,0))
+        dirty.append(self.screen.blit(self.background, (0,0)))
         
         button1 = simple_button(31,614,'NewBoard.png',None)
         self.allsprites=pygame.sprite.RenderPlain(button1)
@@ -661,16 +669,15 @@ class SolitaireMain:
         marble_text = self.font.render(str(self.updated_text), 1, BROWN_COLOR)
         marble_textpos = marble_text.get_rect(topleft=(1000,50))
         #self.screen.blit(marble_text, marble_textpos)
-        
-        self.screen.blit(self.special_marbles[next_marble-1],(1067,45))
+        dirty.append(self.screen.blit(self.special_marbles[next_marble-1],(1067,45)))
         
         self.rollover_images=[]
         self.rollover_images.append(pygame.image.load("data/Arrow1.png"))
         self.rollover_images.append(pygame.image.load("data/Arrow2.png"))
         self.rollover_images.append(pygame.image.load("data/Arrow3.png"))
         self.rollover_images.append(pygame.image.load("data/Arrow4.png"))
-        pygame.display.update()
-        
+        pygame.display.update(dirty)
+        fpsClock.tick(FPS)
         while run:
             #condition for checking for mouse arrows
             if(self.updated_text==32):
@@ -778,9 +785,10 @@ class SolitaireMain:
                 if self.help_var==1:
                     self.help_var=0
                     self.help_screen()
-                    
+
             pygame.display.update()
-            
+            fpsClock.tick(FPS)
+
             if self.updated_text==28 and self.play_sound==False and count==0:
                 if sound_enable:
                     self.level_sounds[0].play()
@@ -826,16 +834,18 @@ class SolitaireMain:
                 self.noMoreMoves()
                 
     def help_screen(self):
-        
+        dirty = []
         run=True
         self.alphasurface = pygame.Surface((1280,825))
         self.alphasurface.convert()
         self.alphasurfacerect = pygame.Rect(0,0,1280,825)
         self.alphasurface.fill((100,100,100))
         self.alphasurface.set_alpha(200)
-        self.screen.blit(self.alphasurface,self.alphasurfacerect)            
-        self.screen.blit(self.helpscreen,(0,0))
-        pygame.display.update()
+        dirty.append(self.screen.blit(self.alphasurface,self.alphasurfacerect))        
+        dirty.append(self.screen.blit(self.helpscreen,(0,0)))
+        pygame.display.update(dirty)
+        fpsClock.tick(FPS)
+
         while run:
             while Gtk.events_pending():
                 Gtk.main_iteration()
