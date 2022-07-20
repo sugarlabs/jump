@@ -370,7 +370,6 @@ class SolitaireMain:
     def checkValidMovement(self):     
         global marbleColor, sound_enable
         temp=pygame.mouse.get_pos()
-        dirty = []
         x=temp[0]    
         y=temp[1]
         x=x-300
@@ -471,16 +470,14 @@ class SolitaireMain:
                       
                 if(myMatrix[k][i]==1): 
                     if self.pngNumber==marbleColor:                        
-                        dirty.append(self.screen.blit(self.marble_images[self.pngNumber],(start,row)))
+                        self.screen.blit(self.marble_images[self.pngNumber],(start,row))
                     else:
         
                         self.pngNumber-=100
-                        dirty.append(self.screen.blit(self.special_marbles[self.pngNumber],(start,row)))                    
+                        self.screen.blit(self.special_marbles[self.pngNumber],(start,row))                  
         
                 start+=90                        
             row+=90        
-        pygame.display.update(dirty)
-        fpsClock.tick(FPS)
         #reseting the values back
         self.OutofRange=True 
         self.initial_x=0
@@ -496,7 +493,6 @@ class SolitaireMain:
         x = (x // 90) - (300 // 90)
         y = (y // 90) - (120 // 90)
         #self.Number=0
-        dirty = []
         #print "marble  color is :",marbleColor
         if(x>=0 and x<7 and y>=0 and y<7):
             if self.pressed==False and myMatrix[y][x]==1:
@@ -532,26 +528,24 @@ class SolitaireMain:
                 if(myMatrix[k][i]==1):
         
                     if self.pngNumber==marbleColor:                        
-                        dirty.append(self.screen.blit(self.marble_images[self.pngNumber],(start,row)))
+                        self.screen.blit(self.marble_images[self.pngNumber],(start,row))
                     
                     else:
                         self.pngNumber-=100
         
-                        dirty.append(self.screen.blit(self.special_marbles[self.pngNumber],(start,row)))
+                        self.screen.blit(self.special_marbles[self.pngNumber],(start,row))
                 start+=90                        
             row+=90
         
 
         if self.Number==marbleColor:
-            dirty.append(self.screen.blit(self.marble_images[self.Number],self.marble_rect))
+            self.screen.blit(self.marble_images[self.Number],self.marble_rect)
         elif self.Number==25:
-            dirty.append(self.screen.blit(self.marble_images[self.Number],self.marble_rect))
+            self.screen.blit(self.marble_images[self.Number],self.marble_rect)
         else:
 
-            dirty.append(self.screen.blit(self.special_marbles[self.Number-100],self.marble_rect))
-        
-        pygame.display.update(dirty)
-        fpsClock.tick(FPS)
+            self.screen.blit(self.special_marbles[self.Number-100],self.marble_rect)
+
         
     def moving(self):
         row=90
