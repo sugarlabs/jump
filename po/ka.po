@@ -8,46 +8,62 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-04 05:48-0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-11-01 03:26+0000\n"
+"Last-Translator: NF <rkavt@smartprojects.ge>\n"
+"Language-Team: Georgian <http://weblate.sugarlabs.org/projects/"
+"sugar-activities/jump/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.4.2\n"
 
 #: activity/activity.info:2
 msgid "Jump"
-msgstr ""
+msgstr "Jump"
 
 #: /home/alan/Documentos/GIT/jump/mainline/activity.py:50
 msgid "Levels"
-msgstr ""
+msgstr "დონეები"
 
 #: /home/alan/Documentos/GIT/jump/mainline/activity.py:56
 msgid "Cross"
-msgstr ""
+msgstr "ჯვარი"
 
 #: /home/alan/Documentos/GIT/jump/mainline/activity.py:56
 msgid "Cross 2"
-msgstr ""
+msgstr "ჯვარი 2"
 
 #: /home/alan/Documentos/GIT/jump/mainline/activity.py:56
 msgid "Hearth"
-msgstr ""
+msgstr "გული"
 
 #: /home/alan/Documentos/GIT/jump/mainline/activity.py:56
 msgid "Arrow"
-msgstr ""
+msgstr "ისარი"
 
 #: /home/alan/Documentos/GIT/jump/mainline/activity.py:56
 msgid "Pyramid"
-msgstr ""
+msgstr "პირამიდა"
 
 #: /home/alan/Documentos/GIT/jump/mainline/activity.py:56
 msgid "Diamond"
-msgstr ""
+msgstr "ალმასი"
 
 #: /home/alan/Documentos/GIT/jump/mainline/activity.py:56
 msgid "Solitaire"
-msgstr ""
+msgstr "პასეანსი"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid "A solitaire game with some levels"
+msgstr "პასეანსის თამაში რამდენიმე დონით"
+
+#: activity.py:78 activity.py:107
+msgid "Sound"
+msgstr "ხმა"
+
+#: activity.py:104
+msgid "No sound"
+msgstr "ხმის გარეშე"
